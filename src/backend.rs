@@ -3,8 +3,8 @@ extern crate rand;
 use self::rand::distributions::{Range, IndependentSample};
 use self::ansi_term::Colour::{Black, White};
 use std::fmt;
-use square::{Contents, Square, SquareState};
-use board_iter::board_iter;
+use crate::square::{Contents, Square, SquareState};
+use crate::board_iter::board_iter;
 
 type Board = Vec<Vec<Square>>;
 
