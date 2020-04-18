@@ -1,10 +1,10 @@
 extern crate ansi_term;
 extern crate rand;
-use self::rand::distributions::{Range, IndependentSample};
 use self::ansi_term::Colour::{Black, White};
-use std::fmt;
-use crate::square::{Contents, Square, SquareState};
+use self::rand::distributions::{IndependentSample, Range};
 use crate::board_iter::board_iter;
+use crate::square::{Contents, Square, SquareState};
+use std::fmt;
 
 type Board = Vec<Vec<Square>>;
 
@@ -53,9 +53,13 @@ impl Game {
     pub fn new(height: usize, width: usize, num_mines: usize) -> Game {
         let mut b = Vec::new();
         for _ in 0..height {
-            b.push(vec![Square {
+            b.push(vec![
+                Square {
                     contents: Contents::Empty(0),
-                    state: SquareState::Unguessed}; width]);
+                    state: SquareState::Unguessed
+                };
+                width
+            ]);
         }
         Game {
             board: b,
@@ -87,8 +91,8 @@ impl Game {
             if let Contents::Mine = self.board[mine_x][mine_y].contents {
                 continue;
             }
-            if (mine_x as isize - x as isize).abs() > 1 ||
-               (mine_y as isize - y as isize).abs() > 1 {
+            if (mine_x as isize - x as isize).abs() > 1 || (mine_y as isize - y as isize).abs() > 1
+            {
                 // Outside the "box" around where the user guessed.
                 self.board[mine_x][mine_y].contents = Contents::Mine;
                 generated += 1;
@@ -109,16 +113,13 @@ impl Game {
             SquareState::Unguessed => PubSquareContents::Unguessed,
             SquareState::Flagged => PubSquareContents::Flagged,
             SquareState::BadFlagged => PubSquareContents::BadFlagged,
-            SquareState::Guessed => {
-                match self.board[x][y].contents {
-                    Contents::Mine => PubSquareContents::Mine,
-                    Contents::LosingMine => PubSquareContents::Mine,
-                    Contents::Empty(i) => PubSquareContents::Empty(i),
-                }
-            }
+            SquareState::Guessed => match self.board[x][y].contents {
+                Contents::Mine => PubSquareContents::Mine,
+                Contents::LosingMine => PubSquareContents::Mine,
+                Contents::Empty(i) => PubSquareContents::Empty(i),
+            },
         }
     }
-
 
     // Expand the squares surrounding (x, y)
     fn expand(&mut self, x: usize, y: usize) {

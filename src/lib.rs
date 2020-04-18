@@ -1,6 +1,6 @@
 pub mod backend;
-mod square;
 mod board_iter;
+mod square;
 
 #[cfg(test)]
 mod tests {
@@ -17,11 +17,18 @@ mod tests {
     #[test]
     fn test_board_iter() {
         let b = board_iter(1, 1, 3, 3);
-        let expected: Vec<(usize, usize)> = vec![(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0),
-                                                 (2, 1), (2, 2)];
+        let expected: Vec<(usize, usize)> = vec![
+            (0, 0),
+            (0, 1),
+            (0, 2),
+            (1, 0),
+            (1, 2),
+            (2, 0),
+            (2, 1),
+            (2, 2),
+        ];
         for (i, pair) in b.enumerate() {
             assert_eq!(expected[i], pair);
         }
-
     }
 }

@@ -6,13 +6,14 @@ fn main() {
     // TODO: add flags for size
     let mut g = Game::new(9, 9, 10);
 
-
     while let GameState::InProg = g.state() {
         println!("{}", g);
         println!("What do you want to do? Input: ");
         println!("F|G x y (e.g. F 0 2 to flag (0, 2))");
         let mut input = String::new();
-        io::stdin().read_line(&mut input).expect("Failed to read line");
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read line");
         let words: Vec<&str> = input.trim().split(' ').collect();
         if words.len() != 3 {
             continue;
