@@ -1,0 +1,8 @@
+[package]
+name = "minesweeper_backend"
+version = "0.1.0"
+authors = ["Miriam Zimmerman <miriam@mutexlox.com>"]
+
+[dependencies]
+rand = "*"
+ansi_term = "*"
